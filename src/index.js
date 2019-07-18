@@ -81,6 +81,15 @@ class EdidReader {
     return edidParser;
   }
 
+  loadString(str) {
+    let rawEdid = (str.toString('utf8'));
+    rawEdid = rawEdid.replace(/[\ \n]/g, '');
+    return Promise.resolve(this.formatEdid(rawEdid))
+      .then((rawEdid) => {
+        this.monitors.push(EdidReader.parse(rawEdid));
+      });
+  }
+
   // Load edid file
   loadFile(path) {
     return fs.readFileAsync(path)

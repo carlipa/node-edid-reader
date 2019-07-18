@@ -325,6 +325,31 @@ Edid.prototype.getSerialNumber = function()
   var SERIAL_NUMBER3 = 14;
   var SERIAL_NUMBER4 = 15;
 
+  // 00 00 00 ff 00 X X X 0a
+  var snStartIndex = false;
+  for (var k=0; !snStartIndex && k<this.edidData.length - 5; k++) {
+    if (this.edidData[k] === 0
+      && this.edidData[k + 1] === 0
+      && this.edidData[k + 2] === 0
+      && this.edidData[k + 3] === 255
+      && this.edidData[k + 4] === 0) {
+      snStartIndex = k + 5;
+    }
+  }
+
+  if (snStartIndex !== false) {
+    var serialNumber = '';
+    var snIndex = snStartIndex;
+    var endOfSnChar = ['a', '1', '0'];
+    while (snIndex < this.edidData.length && endOfSnChar.indexOf(this.edidData[snIndex].toString(16)) < 0) {
+      // console.log(this.edidData[snIndex].toString(16));
+      serialNumber += String.fromCharCode(this.edidData[snIndex]);
+      snIndex++;
+    }
+
+    return serialNumber;
+  }
+
   return  this.edidData[SERIAL_NUMBER4] << 24 |
                           this.edidData[SERIAL_NUMBER3] << 16 |
                           this.edidData[SERIAL_NUMBER2] << 8 |
