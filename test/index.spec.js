@@ -2,8 +2,7 @@ import expect from 'expect';
 import fixtures from './fixtures/edidParser';
 import EdidReader from '../src/';
 
-describe('Serialnumber', () => {
-
+describe('Edid Parser', () => {
   fixtures.forEach((fixture, index) => {
     it(`should match Edid #${index + 1}`, () => {
       const edidReader = new EdidReader();
@@ -18,3 +17,11 @@ describe('Serialnumber', () => {
     });
   });
 });
+
+// describe('Edid Parser', () => {
+//   const edidReader = new EdidReader();
+//   edidReader.scan()
+//     .then(() => {
+//       console.log(edidReader.monitors);
+//     });
+// });

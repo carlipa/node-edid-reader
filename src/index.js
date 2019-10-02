@@ -32,15 +32,20 @@ class EdidReader {
 
   // Mac OSX fetch EDID
   getDarwinSystemEdids() {
-    const shellCommand = 'ioreg -lw0 -r -c "IODisplayConnect" -n "display0" -d 2' +
-    ' | grep "IODisplayEDID"' +
-    ' | cut -d\\< -f 2 | cut -d\\> -f 1';
+    const shellCommand = 'ioreg -lw0 -r -c "IODisplayConnect" -n "display0" -d 2';
     const child = spawn('sh', ['-c', shellCommand]);
     let data = '';
     return new Promise((resolve) => {
-      child.stdout.on('data', (output) => { data += output.toString(); });
+      child.stdout.on('data', (output) => {
+        data += output.toString();
+      });
       child.on('exit', () => {
-        resolve(data.split('\n'));
+        const regex = /"IODisplayEDID" = <([0-f]+)>/g;
+        let matches, edids = [];
+        while (matches = regex.exec(data)) {
+          edids.push(matches[1]);
+        }
+        resolve(edids);
       });
     })
     .filter((edid) => edid !== '');
@@ -69,6 +74,8 @@ class EdidReader {
         this.monitors = _.map(rawEdids, (rawEdid) => EdidReader.parse(rawEdid));
       });
   }
+
+  
 
   // Parse edid
   static parse(rawEdid) {
@@ -101,6 +108,10 @@ class EdidReader {
       .then((rawEdid) => {
         this.monitors.push(EdidReader.parse(rawEdid));
       });
+  }
+
+  static cardOutputMapper(cardOutputName) {
+    // card0-HDMI-A-1 => HDMI1
   }
 }
 
