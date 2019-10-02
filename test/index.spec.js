@@ -18,6 +18,22 @@ describe('Edid Parser', () => {
   });
 });
 
+describe('Output Mapper', () => {
+  // /sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-DP-1/edid
+  it('should match output DP1', () => {
+    const outputName = EdidReader.cardOutputMapper('/sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-DP-1/edid');
+    expect(outputName).toBe('DP1');
+  });
+  it('should match output DP2', () => {
+    const outputName = EdidReader.cardOutputMapper('/sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-DP-2/edid');
+    expect(outputName).toBe('DP2');
+  });
+  it('should match output HDMI1', () => {
+    const outputName = EdidReader.cardOutputMapper('/sys/devices/pci0000:00/0000:00:02.0/drm/card0/card0-HDMI-A-1/edid');
+    expect(outputName).toBe('HDMI1');
+  });
+});
+
 // describe('Edid Parser', () => {
 //   const edidReader = new EdidReader();
 //   edidReader.scan()

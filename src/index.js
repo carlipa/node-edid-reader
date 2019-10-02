@@ -8,6 +8,8 @@ const fs = Promise.promisifyAll(require('fs'));
 const glob = Promise.promisify(require('glob'));
 const spawn = require('child_process').spawn;
 
+const nodeEnv = process.env.NODE_ENV || 'production';
+
 // Local imports
 const EdidParser = require('./edid-parser');
 
@@ -48,22 +50,26 @@ class EdidReader {
         resolve(edids);
       });
     })
-    .filter((edid) => edid !== '');
+    .filter((edid) => edid !== '')
+    .map(edid => ({filename: null, edid}));
   }
 
   // Linux fetch EDID
   getLinuxSystemEdids() {
     // /sys/devices/pci0000\:00/0000\:00\:02.0/drm/card0/card0-HDMI-A-1/edid
     return glob('/sys/devices/pci*/0000:*/drm/card*/card*/edid')
-      .map((edidFileName) => fs.readFileAsync(edidFileName))
-      .map((buffer) => buffer.toString('hex'))
-      .filter((edid) => edid !== '');
+      .map((edidFileName) => fs.readFileAsync(edidFileName)
+        .then(buffer => ({filename: edidFileName, edid: buffer.toString('hex')})))
+      .filter(result => result.edid !== '');
   }
 
   // Group 2 by 2, hex to int
-  formatEdid(edid) {
+  formatEdid({filename, edid}) {
     const rawEdid = edid.split(/(?=(?:..)*$)/);
-    return _.map(rawEdid, (block) => parseInt(block.toUpperCase(), 16));
+    return {
+      filename,
+      edid: _.map(rawEdid, (block) => parseInt(block.toUpperCase(), 16))
+    };
   }
 
   // Scan host for edids
@@ -71,11 +77,14 @@ class EdidReader {
     return this.getSystemEdids()
       .map(this.formatEdid)
       .then((rawEdids) => {
-        this.monitors = _.map(rawEdids, (rawEdid) => EdidReader.parse(rawEdid));
+        this.monitors = _.map(rawEdids, ({filename, edid}) => {
+          const edidObj = EdidReader.parse(edid);
+          edidObj.outputName = EdidReader.cardOutputMapper(filename);
+          return edidObj;
+        });
       });
   }
 
-  
 
   // Parse edid
   static parse(rawEdid) {
@@ -91,9 +100,9 @@ class EdidReader {
   loadString(str) {
     let rawEdid = (str.toString('utf8'));
     rawEdid = rawEdid.replace(/[\ \n]/g, '');
-    return Promise.resolve(this.formatEdid(rawEdid))
-      .then((rawEdid) => {
-        this.monitors.push(EdidReader.parse(rawEdid));
+    return Promise.resolve(this.formatEdid({filename: null, edid: rawEdid}))
+      .then(({edid}) => {
+        this.monitors.push(EdidReader.parse(edid));
       });
   }
 
@@ -103,15 +112,26 @@ class EdidReader {
       .then((buffer) => {
         let rawEdid = (buffer.toString('utf8'));
         rawEdid = rawEdid.replace(/[\ \n]/g, '');
-        return this.formatEdid(rawEdid);
+        return this.formatEdid({filename: path, edid: rawEdid});
       })
-      .then((rawEdid) => {
-        this.monitors.push(EdidReader.parse(rawEdid));
+      .then(({filename, edid}) => {
+        const edidObj = EdidReader.parse(edid);
+        edidObj.outputName = EdidReader.cardOutputMapper(filename);
+        this.monitors.push(edidObj);
       });
   }
 
-  static cardOutputMapper(cardOutputName) {
+  static cardOutputMapper(filename) {
+    if (!filename || (os.platform() !== 'linux' && nodeEnv !== 'test') || typeof filename !== 'string') return null;
     // card0-HDMI-A-1 => HDMI1
+    const outputRegex = /card[0-9]+-([^/]+)\/edid$/;
+    const res = filename.match(outputRegex);
+    if (!res) return null;
+    let origOutputName = res[1];
+    if (/^HDMI-A/.test(origOutputName)) {
+      origOutputName = origOutputName.replace(/^HDMI-[A-D]/, 'HDMI');
+    }
+    return origOutputName.replace(/-/g, '');
   }
 }
 
