@@ -8,6 +8,8 @@ describe('Edid Parser', () => {
       const edidReader = new EdidReader();
       return edidReader.loadString(fixture.edid)
         .then(() => {
+          expect(edidReader.monitors[0].displaySize[0]).toBe(fixture.displaySize[0]);
+          expect(edidReader.monitors[0].displaySize[1]).toBe(fixture.displaySize[1]);
           expect(edidReader.monitors[0].serialNumber).toBe(fixture.serialNumber);
           expect(edidReader.monitors[0].modelName).toBe(fixture.modelName);
           expect(edidReader.monitors[0].eisaId).toBe(fixture.eisaId);

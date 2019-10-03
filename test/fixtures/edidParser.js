@@ -15,7 +15,8 @@ module.exports = [
     modelName: '2280W',
     eisaId: 'AOC',
     edidVersion: '1.3',
-    manufactureDate: '37/2017'
+    manufactureDate: '37/2017',
+    displaySize: [480, 270],
   },
   {
     edid: `00 ff ff ff ff ff ff 00 09 d1 1e 80 45 54 00 00 03 1c 01 03 80 3c 22 78
@@ -33,7 +34,8 @@ module.exports = [
     modelName: 'BenQ LCD',
     eisaId: 'BNQ',
     edidVersion: '1.3',
-    manufactureDate: '3/2018'
+    manufactureDate: '3/2018',
+    displaySize: [600, 340],
   },
   {
     edid: `00 ff ff ff ff ff ff 00 4c 2d fc 05 33 32 46 45 0b 14 01 03 80 10 09 78
@@ -51,7 +53,8 @@ module.exports = [
     modelName: 'SyncMaster',
     eisaId: 'SAM',
     edidVersion: '1.3',
-    manufactureDate: '11/2010'
+    manufactureDate: '11/2010',
+    displaySize: [160, 90],
   },
   {
     edid: `00 ff ff ff ff ff ff 00 4c 2d 41 08 01 00 00 00 08 15 01 03 80 66 39 78
@@ -69,7 +72,8 @@ module.exports = [
     modelName: 'SyncMaster',
     eisaId: 'SAM',
     edidVersion: '1.3',
-    manufactureDate: '8/2011'
+    manufactureDate: '8/2011',
+    displaySize: [1020, 570],
   },
   {
     edid: `00 ff ff ff ff ff ff 00 4c 2d 82 0d 01 00 00 00 0e 1a 01 03 80 46 27 78
@@ -87,7 +91,8 @@ module.exports = [
     modelName: 'SyncMaster',
     eisaId: 'SAM',
     edidVersion: '1.3',
-    manufactureDate: '14/2016'
+    manufactureDate: '14/2016',
+    displaySize: [700, 390],
   },
   {
     edid: `00 ff ff ff ff ff ff 00  4c 2d 41 08 01 00 00 00
@@ -110,7 +115,8 @@ module.exports = [
     modelName: 'SyncMaster',
     eisaId: 'SAM',
     edidVersion: '1.3',
-    manufactureDate: '8/2011'
+    manufactureDate: '8/2011',
+    displaySize: [1020, 570],
   },
   {
     edid: `00 ff ff ff ff ff ff 00  09 d1 16 75 08 00 00 00
@@ -133,7 +139,8 @@ module.exports = [
     modelName: 'V37C',
     eisaId: 'BNQ',
     edidVersion: '1.3',
-    manufactureDate: '28/2006'
+    manufactureDate: '28/2006',
+    displaySize: [820, 460],
   },
   {
     edid: `00 ff ff ff ff ff ff 00  26 cd 13 56 01 01 01 01
@@ -148,7 +155,8 @@ module.exports = [
     modelName: 'PLT2250MTS',
     eisaId: 'IVM',
     edidVersion: '1.3',
-    manufactureDate: '50/2009'
+    manufactureDate: '50/2009',
+    displaySize: [480, 270],
   },
   {
     edid: `00 ff ff ff ff ff ff 00  1e 6d 7a 75 54 3d 04 00
@@ -171,7 +179,8 @@ module.exports = [
     modelName: 'M3201C',
     eisaId: 'GSM',
     edidVersion: '1.3',
-    manufactureDate: '10/2006'
+    manufactureDate: '10/2006',
+    displaySize: [700, 390],
   },
   {
     edid: `00ffffffffffff0036794a1c000000001718010380351e78
@@ -189,7 +198,8 @@ module.exports = [
     modelName: 'M2467PW',
     eisaId: 'MSY',
     edidVersion: '1.3',
-    manufactureDate: '23/2014'
+    manufactureDate: '23/2014',
+    displaySize: [530, 300],
   },
   {
     edid: `00ffffffffffff0010acbf404c37303432180103803c2278
@@ -207,7 +217,8 @@ module.exports = [
     modelName: 'DELL P2715Q',
     eisaId: 'DEL',
     edidVersion: '1.3',
-    manufactureDate: '50/2014'
+    manufactureDate: '50/2014',
+    displaySize: [600, 340],
   },
   {
     edid: `00ffffffffffff0010acbd404c31324132180104a53c2278
@@ -225,7 +236,8 @@ module.exports = [
     modelName: 'DELL P2715Q',
     eisaId: 'DEL',
     edidVersion: '1.4',
-    manufactureDate: '50/2014'
+    manufactureDate: '50/2014',
+    displaySize: [600, 340],
   },
   {
     edid: `00ffffffffffff00061030a00000000026190104b5211578
@@ -238,6 +250,7 @@ module.exports = [
     modelName: 'Color LCD',
     eisaId: 'APP',
     edidVersion: '1.4',
-    manufactureDate: '38/2015'
+    manufactureDate: '38/2015',
+    displaySize: [330, 210],
   }
 ];
