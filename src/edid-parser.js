@@ -202,9 +202,7 @@ Edid.prototype.parse = function()
   }
 
   this.displaySize = this.getDisplaySize();
-  console.log('SIZE');
-  console.log(this.displaySize);
-
+  
   this.eisaId = this.getEisaId();
 
   this.productCode = this.getProductCode();
