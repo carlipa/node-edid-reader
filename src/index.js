@@ -64,7 +64,7 @@ class EdidReader {
   }
 
   // Group 2 by 2, hex to int
-  formatEdid({filename, edid}) {
+  static formatEdid({filename, edid}) {
     const rawEdid = edid.split(/(?=(?:..)*$)/);
     return {
       filename,
@@ -78,6 +78,7 @@ class EdidReader {
       .map(this.formatEdid)
       .then((rawEdids) => {
         this.monitors = _.map(rawEdids, ({filename, edid}) => {
+          console.log(edid);
           const edidObj = EdidReader.parse(edid);
           edidObj.outputName = EdidReader.cardOutputMapper(filename);
           return edidObj;
@@ -88,8 +89,18 @@ class EdidReader {
 
   // Parse edid
   static parse(rawEdid) {
+    let formatedEdid;
+    if (typeof rawEdid === 'string') {
+      const chunkedEdid = rawEdid.split(/(?=(?:..)*$)/);
+      formatedEdid = _.map(chunkedEdid, (block) => parseInt(block.toUpperCase(), 16))
+    } else if (rawEdid instanceof Array) {
+      formatedEdid = rawEdid;
+    }
+    if (formatedEdid.length !== 256 && formatedEdid.length !== 128) {
+      throw new Error('Invalid Edid format');
+    }
     const edidParser = new EdidParser();
-    edidParser.setEdidData(rawEdid);
+    edidParser.setEdidData(formatedEdid);
     edidParser.parse();
     const vendor = EdidReader.eisaIds[edidParser.eisaId] || {name: '', fullName: ''};
     edidParser.vendor = vendor.name;
@@ -100,7 +111,7 @@ class EdidReader {
   loadString(str) {
     let rawEdid = (str.toString('utf8'));
     rawEdid = rawEdid.replace(/[\ \n]/g, '');
-    return Promise.resolve(this.formatEdid({filename: null, edid: rawEdid}))
+    return Promise.resolve(EdidReader.formatEdid({filename: null, edid: rawEdid}))
       .then(({edid}) => {
         this.monitors.push(EdidReader.parse(edid));
       });
