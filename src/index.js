@@ -18,11 +18,15 @@ class EdidReader {
   // Source: http://www.komeil.com/blog/fix-edid-monitor-no-signal-dvi#li-comment-845
   static eisaIds = require(`${__dirname}/../data/eisa.json`);
 
-  constructor() {
+  constructor(options = {}) {
     if (!_.includes(['linux', 'darwin'], os.platform())) {
       process.stderr.write('EdidReader not available on this platform\n');
       return;
     }
+    this.options = {
+      useXrandr: false,
+      ...options
+    };
     this.monitors = [];
   }
 
@@ -57,10 +61,30 @@ class EdidReader {
   // Linux fetch EDID
   getLinuxSystemEdids() {
     // /sys/devices/pci0000\:00/0000\:00\:02.0/drm/card0/card0-HDMI-A-1/edid
-    return glob('/sys/devices/pci*/0000:*/drm/card*/card*/edid')
-      .map((edidFileName) => fs.readFileAsync(edidFileName)
-        .then(buffer => ({filename: edidFileName, edid: buffer.toString('hex')})))
-      .filter(result => result.edid !== '');
+    if (!this.options.useXrandr) {
+      return glob('/sys/devices/pci*/0000:*/drm/card*/card*/edid')
+        .map((edidFileName) => fs.readFileAsync(edidFileName)
+          .then(buffer => ({filename: edidFileName, edid: buffer.toString('hex')})))
+        .filter(result => result.edid !== '');
+    } else {
+      const shellCommand = 'xrandr --verbose';
+      const child = spawn('sh', ['-c', shellCommand], {env: {DISPLAY: ':0'}});
+      let data = '';
+      return new Promise((resolve) => {
+        child.stdout.on('data', (output) => {
+          data += output.toString();
+        });
+        child.on('exit', () => {
+          const data.split(/\n([A-Z-]+\d+)/g);
+          const regex = /\n([A-Z-]+\d+) (?:dis)?connected.*EDID:([0-f\n\s]+)/g;
+          let matches, edids = [];
+          while (matches = regex.exec(data)) {
+            edids.push(matches[1].replace(/\s/g, ''));
+          }
+          resolve(edids);
+        });
+      })
+    }
   }
 
   // Group 2 by 2, hex to int
