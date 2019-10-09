@@ -96,7 +96,7 @@ class EdidReader {
     } else if (rawEdid instanceof Array) {
       formatedEdid = rawEdid;
     }
-    if (formatedEdid.length !== 256 && formatedEdid.length !== 128) {
+    if (!formatedEdid || (formatedEdid.length !== 256 && formatedEdid.length !== 128)) {
       throw new Error('Invalid Edid format');
     }
     const edidParser = new EdidParser();
