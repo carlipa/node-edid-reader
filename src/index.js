@@ -17,6 +17,8 @@ class EdidReader {
 
   // Source: http://www.komeil.com/blog/fix-edid-monitor-no-signal-dvi#li-comment-845
   static eisaIds = require(`${__dirname}/../data/eisa.json`);
+  // Source: https://uefi.org/acpi_id_list
+  static pnpIds = require(`${__dirname}/../data/pnp.json`);
 
   constructor() {
     if (!_.includes(['linux', 'darwin'], os.platform())) {
@@ -102,7 +104,7 @@ class EdidReader {
     const edidParser = new EdidParser();
     edidParser.setEdidData(formatedEdid);
     edidParser.parse();
-    const vendor = EdidReader.eisaIds[edidParser.eisaId] || {name: '', fullName: ''};
+    const vendor = EdidReader.eisaIds[edidParser.eisaId] || EdidReader.pnpIds[edidParser.eisaId] || {name: '', fullName: ''};
     edidParser.vendor = vendor.name;
     edidParser.vendorFullName = vendor.fullName;
     return edidParser;

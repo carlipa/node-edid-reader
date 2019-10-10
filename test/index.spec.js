@@ -15,6 +15,7 @@ describe('Edid Parser', () => {
           expect(edidReader.monitors[0].eisaId).to.equal(fixture.eisaId);
           expect(edidReader.monitors[0].edidVersion).to.equal(fixture.edidVersion);
           expect(edidReader.monitors[0].manufactureDate).to.equal(fixture.manufactureDate);
+          expect(edidReader.monitors[0].vendor).to.equal(fixture.vendor);
         });
     });
   });
