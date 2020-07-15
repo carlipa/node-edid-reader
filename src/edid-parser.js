@@ -202,7 +202,7 @@ Edid.prototype.parse = function()
   }
 
   this.displaySize = this.getDisplaySize();
-  
+
   this.eisaId = this.getEisaId();
 
   this.productCode = this.getProductCode();
@@ -300,8 +300,9 @@ Edid.prototype.getEisaId = function()
   var secondLetter = (secondLetterTop << LETTER2_TOP_BYTES) | secondLetterBottom;
 
   var thirdLetter = this.edidData[EISA_ID_BYTE2] & FIVE_BIT_LETTER_MASK;
-
-  return intToAscii(firstLetter)+intToAscii(secondLetter)+intToAscii(thirdLetter);
+  return (intToAscii(firstLetter) || '') +
+    (intToAscii(secondLetter) || '') +
+    (intToAscii(thirdLetter) || '');
 }
 
 Edid.prototype.getDisplaySize = function() {
