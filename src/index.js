@@ -59,7 +59,7 @@ class EdidReader {
   // Linux fetch EDID
   getLinuxSystemEdids() {
     // /sys/devices/pci0000\:00/0000\:00\:02.0/drm/card0/card0-HDMI-A-1/edid
-    return glob('/sys/devices/pci*/0000:*/drm/card*/card*/edid')
+    return glob('/sys/devices/pci*/0000:*/*/drm/card*/card*/edid')
       .map((edidFileName) => fs.readFileAsync(edidFileName)
         .then(buffer => ({filename: edidFileName, edid: buffer.toString('hex')})))
       .filter(result => result.edid !== '');
@@ -77,7 +77,7 @@ class EdidReader {
   // Scan host for edids
   scan() {
     return this.getSystemEdids()
-      .map(this.formatEdid)
+      .map(EdidReader.formatEdid)
       .then((rawEdids) => {
         this.monitors = _.map(rawEdids, ({filename, edid}) => {
           console.log(edid);
