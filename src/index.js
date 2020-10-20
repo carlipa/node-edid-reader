@@ -16,9 +16,9 @@ const EdidParser = require('./edid-parser');
 class EdidReader {
 
   // Source: http://www.komeil.com/blog/fix-edid-monitor-no-signal-dvi#li-comment-845
-  static eisaIds = require(`${__dirname}/../data/eisa.json`);
+  static eisaIds = require('../data/eisa.json');
   // Source: https://uefi.org/acpi_id_list
-  static pnpIds = require(`${__dirname}/../data/pnp.json`);
+  static pnpIds = require('../data/pnp.json');
 
   constructor() {
     if (!_.includes(['linux', 'darwin'], os.platform())) {
@@ -59,7 +59,7 @@ class EdidReader {
   // Linux fetch EDID
   getLinuxSystemEdids() {
     // /sys/devices/pci0000\:00/0000\:00\:02.0/drm/card0/card0-HDMI-A-1/edid
-    return glob('/sys/devices/pci*/0000:*/drm/card*/card*/edid')
+    return glob('/sys/devices/pci*/0000:*/*/drm/card*/card*/edid')
       .map((edidFileName) => fs.readFileAsync(edidFileName)
         .then(buffer => ({filename: edidFileName, edid: buffer.toString('hex')})))
       .filter(result => result.edid !== '');
@@ -77,10 +77,10 @@ class EdidReader {
   // Scan host for edids
   scan() {
     return this.getSystemEdids()
-      .map(this.formatEdid)
+      .map(EdidReader.formatEdid)
       .then((rawEdids) => {
         this.monitors = _.map(rawEdids, ({filename, edid}) => {
-          console.log(edid);
+          // console.log(edid);
           const edidObj = EdidReader.parse(edid);
           edidObj.outputName = EdidReader.cardOutputMapper(filename);
           return edidObj;
