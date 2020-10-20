@@ -80,7 +80,7 @@ class EdidReader {
       .map(EdidReader.formatEdid)
       .then((rawEdids) => {
         this.monitors = _.map(rawEdids, ({filename, edid}) => {
-          console.log(edid);
+          // console.log(edid);
           const edidObj = EdidReader.parse(edid);
           edidObj.outputName = EdidReader.cardOutputMapper(filename);
           return edidObj;
