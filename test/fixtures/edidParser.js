@@ -18,6 +18,7 @@ module.exports = [
     edidVersion: '1.3',
     manufactureDate: '37/2017',
     displaySize: [480, 270],
+    displayInputType: 1
   },
   {
     edid: `00 ff ff ff ff ff ff 00 09 d1 1e 80 45 54 00 00 03 1c 01 03 80 3c 22 78
@@ -38,6 +39,7 @@ module.exports = [
     edidVersion: '1.3',
     manufactureDate: '3/2018',
     displaySize: [600, 340],
+    displayInputType: 1
   },
   {
     edid: `00 ff ff ff ff ff ff 00 4c 2d fc 05 33 32 46 45 0b 14 01 03 80 10 09 78
@@ -58,6 +60,7 @@ module.exports = [
     edidVersion: '1.3',
     manufactureDate: '11/2010',
     displaySize: [160, 90],
+    displayInputType: 1
   },
   {
     edid: `00 ff ff ff ff ff ff 00 4c 2d 41 08 01 00 00 00 08 15 01 03 80 66 39 78
@@ -78,6 +81,7 @@ module.exports = [
     edidVersion: '1.3',
     manufactureDate: '8/2011',
     displaySize: [1020, 570],
+    displayInputType: 1
   },
   {
     edid: `00 ff ff ff ff ff ff 00 4c 2d 82 0d 01 00 00 00 0e 1a 01 03 80 46 27 78
@@ -98,6 +102,7 @@ module.exports = [
     edidVersion: '1.3',
     manufactureDate: '14/2016',
     displaySize: [700, 390],
+    displayInputType: 1
   },
   {
     edid: `00 ff ff ff ff ff ff 00  4c 2d 41 08 01 00 00 00
@@ -123,6 +128,7 @@ module.exports = [
     edidVersion: '1.3',
     manufactureDate: '8/2011',
     displaySize: [1020, 570],
+    displayInputType: 1
   },
   {
     edid: `00 ff ff ff ff ff ff 00  09 d1 16 75 08 00 00 00
@@ -148,6 +154,7 @@ module.exports = [
     edidVersion: '1.3',
     manufactureDate: '28/2006',
     displaySize: [820, 460],
+    displayInputType: 1
   },
   {
     edid: `00 ff ff ff ff ff ff 00  26 cd 13 56 01 01 01 01
@@ -165,6 +172,7 @@ module.exports = [
     edidVersion: '1.3',
     manufactureDate: '50/2009',
     displaySize: [480, 270],
+    displayInputType: 1
   },
   {
     edid: `00 ff ff ff ff ff ff 00  1e 6d 7a 75 54 3d 04 00
@@ -190,6 +198,7 @@ module.exports = [
     edidVersion: '1.3',
     manufactureDate: '10/2006',
     displaySize: [700, 390],
+    displayInputType: 1
   },
   {
     edid: `00ffffffffffff0036794a1c000000001718010380351e78
@@ -210,6 +219,7 @@ module.exports = [
     edidVersion: '1.3',
     manufactureDate: '23/2014',
     displaySize: [530, 300],
+    displayInputType: 1
   },
   {
     edid: `00ffffffffffff0010acbf404c37303432180103803c2278
@@ -230,6 +240,7 @@ module.exports = [
     edidVersion: '1.3',
     manufactureDate: '50/2014',
     displaySize: [600, 340],
+    displayInputType: 1
   },
   {
     edid: `00ffffffffffff0010acbd404c31324132180104a53c2278
@@ -250,6 +261,7 @@ module.exports = [
     edidVersion: '1.4',
     manufactureDate: '50/2014',
     displaySize: [600, 340],
+    displayInputType: 3
   },
   {
     edid: `00ffffffffffff00061030a00000000026190104b5211578
@@ -265,6 +277,7 @@ module.exports = [
     edidVersion: '1.4',
     manufactureDate: '38/2015',
     displaySize: [330, 210],
+    displayInputType: 0
   },
   {
     edid: `00ffffffffffff0039f60504120c190010170103811e17b4
@@ -285,6 +298,7 @@ module.exports = [
     edidVersion: '1.3',
     manufactureDate: '16/2013',
     displaySize: [300, 230],
+    displayInputType: 1
   },
   {
     edid: `00ffffffffffff004c2d0b09010000002a150103805932780aee91a3544c99260f5054bdef80714f81c0810081809500a9c0b3000101023a801871382d40582c4500a05a0000001e662156aa51001e30468f3300a05a0000001e000000fd00184b0f5117000a202020202020000000fc0053414d53554e470a2020202020019b020334f14d901f04130514031220212207162309070783010000e2000fe305030172030c003000b82d21d0080140073f405090a0011d80d0721c1620102c2580a05a0000009e011d8018711c1620582c2500a05a0000009e011d00bc52d01e20b8285540a05a0000001e011d007251d01e206e285500a05a0000001e00000086`,
@@ -294,7 +308,8 @@ module.exports = [
     vendor: 'Samsung',
     edidVersion: '1.3',
     manufactureDate: '42/2011',
-    displaySize: [890, 500]
+    displaySize: [890, 500],
+    displayInputType: 1
   },
   {
     edid: `00ffffffffffff00199f012700000000031b0103803e2278ea1ec5ae4f34b1260e50542fcf00d100d1c0b300a9c09500818181007140023a801871382d40582c3500e00e1100001ae26800a0a0402e603020360080902100001a565e00a0a0a029503020360080682100001a000000fc0048444d49324b0a20202020202001df02033e705490050403020716011f121314201511065d5e5f6223090707830100006d030c001000383d20006001020367d85dc401780000e3050301e20f71226f80a07070788030204600e01c1200001a04740030f2705a8030204600c01c3200001a352f00a0a0a029503020360080682100001a000000000000000000000062`,
@@ -304,6 +319,43 @@ module.exports = [
     vendor: '',
     edidVersion: '1.3',
     manufactureDate: '3/2017',
-    displaySize: [620, 340]
+    displaySize: [620, 340],
+    displayInputType: 1
+  },
+  {
+    // dell DP
+    edid: `00ffffffffffff0010acb4414c424b440f1f0104b53c22783eee95a3544c99260f5054a54b00e1c0d100d1c0b300a94081808100714f4dd000a0f0703e803020350055502100001a000000ff00443535425338330a2020202020000000fd00184b1e8c36010a202020202020000000fc0044454c4c205532373230510a2001b8020324f14c101f2005140413121103020123097f0783010000e305ff01e6060701605628a36600a0f0703e803020350055502100001a565e00a0a0a029503020350055502100001a114400a0800025503020360055502100001a0000000000000000000000000000000000000000000000000000000000000000000000000014`,
+    serialNumber: 'D55BS83',
+    modelName: 'DELL U2720Q',
+    eisaId: 'DEL',
+    vendor: 'Dell',
+    edidVersion: '1.4',
+    manufactureDate: '15/2021',
+    displaySize: [600, 340],
+    displayInputType: 3
+  },
+  {
+    // dell HDMI
+    edid: `00ffffffffffff0010acb1414c424b440f1f0103803c2278eeee95a3544c99260f5054a54b00e1c0d100d1c0b300a94081808100714f08e80030f2705a80b0588a0055502100001e000000ff00443535425338330a2020202020000000fc0044454c4c205532373230510a20000000fd00184b1e8c3c000a20202020202001aa020343f15261605f5e5d101f051404131211030207060123097f07830100006d030c001000383c20006001020367d85dc401788003e20f03e305ff01e6060701605628565e00a0a0a029503020350055502100001a114400a0800025503020360055502100001a0000000000000000000000000000000000000000000000007d`,
+    serialNumber: 'D55BS83',
+    modelName: 'DELL U2720Q',
+    eisaId: 'DEL',
+    vendor: 'Dell',
+    edidVersion: '1.3',
+    manufactureDate: '15/2021',
+    displaySize: [600, 340],
+    displayInputType: 1
+  },
+  {
+    // Samsung HDMI
+    edid: `00ffffffffffff004c2d710e00080000011b0103805f36782a23ada4544d99260f474abdef80714f81c0810081809500a9c0b3000101023a801871382d40582c4500ad113200001e000000fd00184b1a5117000a202020202020000000fc0053796e634d61737465720a2020000000ff004831414b3530303030300a2020012902032df14d901f04130514031220212207162309070783010000e2000fe305c30167030c001000b82de3060d01023a80d072382d40102c4580ad113200001e011d007251d01e206e285500ad113200001e011d00bc52d01e20b8285540ad113200001e662156aa51001e30468f3300ad113200001e00000000000000000000cc`,
+    serialNumber: 'H1AK500000',
+    modelName: 'SyncMaster',
+    eisaId: 'SAM',
+    vendor: 'Samsung',
+    edidVersion: '1.3',
+    manufactureDate: '1/2017',
+    displaySize: [950, 540],
+    displayInputType: 1
   }
 ];

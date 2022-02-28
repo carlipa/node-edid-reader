@@ -8,6 +8,7 @@ describe('Edid Parser', () => {
       const edidReader = new EdidReader();
       return edidReader.loadString(fixture.edid)
         .then(() => {
+          // delete edidReader.monitors[0].shortVideoDescriptors;
           expect(edidReader.monitors[0].displaySize[0]).to.equal(fixture.displaySize[0]);
           expect(edidReader.monitors[0].displaySize[1]).to.equal(fixture.displaySize[1]);
           expect(edidReader.monitors[0].serialNumber).to.equal(fixture.serialNumber);
@@ -16,6 +17,7 @@ describe('Edid Parser', () => {
           expect(edidReader.monitors[0].edidVersion).to.equal(fixture.edidVersion);
           expect(edidReader.monitors[0].manufactureDate).to.equal(fixture.manufactureDate);
           expect(edidReader.monitors[0].vendor).to.equal(fixture.vendor);
+          expect(edidReader.monitors[0].displayInputType).to.equal(fixture.displayInputType);
         });
     });
   });
