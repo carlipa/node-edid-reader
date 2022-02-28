@@ -1,6 +1,6 @@
 {
   "name": "edid-reader",
-  "version": "0.3.8",
+  "version": "0.4.0",
   "description": "Linux edid reader lib",
   "main": "lib/index.js",
   "repository": {
